@@ -1,6 +1,6 @@
 from fastapi import FastAPI
-from auth.router import router as auth_router
-from calories.router import router as calorie_router
+from auth.controllers import router as auth_router
+from calories.controllers import router as calorie_router
 from app.database import create_db_and_tables
 from app.exceptions import add_exception_handlers
 
