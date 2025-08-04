@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from auth.router import router as auth_router
 from calories.router import router as calorie_router
 from app.database import create_db_and_tables
+from app.exceptions import add_exception_handlers
 
 app = FastAPI(title="Calorie Tracker API")
 
@@ -9,5 +10,9 @@ app = FastAPI(title="Calorie Tracker API")
 def startup():
     create_db_and_tables()
 
-app.include_router(auth_router, prefix="/auth", tags=["Auth"])
+
+# Register custom exception handlers
+add_exception_handlers(app)
+
+app.include_router(auth_router, prefix="/auth", tags=["Authentication"])
 app.include_router(calorie_router, prefix="/calories", tags=["Calories"])

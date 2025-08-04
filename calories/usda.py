@@ -2,7 +2,7 @@ import httpx
 from fuzzywuzzy import process
 from app.config import settings
 
-def fetch_calories(food_name: str) -> float:
+async def fetch_calories(food_name: str) -> float:
     url = "https://api.nal.usda.gov/fdc/v1/foods/search"
     params = {
         "query": food_name,
@@ -10,10 +10,13 @@ def fetch_calories(food_name: str) -> float:
         "pageSize": 15
     }
 
-    response = httpx.get(url, params=params)
+    async with httpx.AsyncClient() as client:
+        response = await client.get(url, params=params)
+    
     response.raise_for_status()
 
     results = response.json().get("foods", [])
+    
     if not results:
         raise Exception("Food not found")
 

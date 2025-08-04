@@ -1,5 +1,3 @@
-# auth.models.py
-
 from sqlalchemy import Column, Integer, String
 from app.database import Base
 from pydantic import BaseModel, EmailStr

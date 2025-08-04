@@ -1,5 +1,3 @@
-# app/auth/auth.service.py
-
 from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
 from auth.dal import AuthDAL
@@ -31,7 +29,7 @@ class AuthService:
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="Invalid credentials"
             )
-        token = create_access_token({"sub": user.email})
+        token = create_access_token(user.email)
         return {
         "access_token": token,
         "token_type": "bearer",
